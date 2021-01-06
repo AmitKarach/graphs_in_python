@@ -12,6 +12,8 @@ class DiGraph(GraphInterface):
         self.edges_size = 0
         self.mc = 0
 
+
+
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if node_id in self.nodes:
             return False
