@@ -48,33 +48,40 @@ class DiGraph(GraphInterface):
         return len(self.nodes)
 
     def e_size(self) -> int:
-        return len(self.edges)
+        return self.edges_size
 
     def all_in_edges_of_node(self, id1: int) -> dict:
+        if id1 not in self.edges_in:
+            return None
         return self.edges_in.get(self, id1)
 
     def all_out_edges_of_node(self, id1: int) -> dict:
+        if id1 not in self.edges_out:
+            return None
         return self.edges_out.get(self, id1)
 
     def remove_node(self, node_id: int) -> bool:
-        """
-        Removes a node from the graph.
-        @param node_id: The node ID
-        @return: True if the node was removed successfully, False o.w.
-
-        Note: if the node id does not exists the function will do nothing
-        """
-        raise NotImplementedError
-
+        if node_id in self.nodes:
+            for i in self.edges_out[node_id]:
+                self.edges_in[i].pop(node_id)
+                self.edges_size-=1
+                if len(self.edges_in[i]) ==0:
+                    self.edges_in.pop(i)
+            self.edges_out.pop(node_id)
+            self.nodes.pop(node_id)
+            return True
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        """
-        Removes an edge from the graph.
-        @param node_id1: The start node of the edge
-        @param node_id2: The end node of the edge
-        @return: True if the edge was removed successfully, False o.w.
+       if node_id1 in self.nodes and node_id2 in self.nodes:
+           if node_id1 in self.edges_out:
+               self.edges_out[node_id1].pop(node_id2)
+               if len(self.edges_out[node_id1]) ==0:
+                   self.edges_out.pop(node_id1)
+               self.edges_in[node_id2].pop(node_id1)
+               if len(self.edges_in[node_id2]) ==0:
+                   self.edges_in.pop(node_id2)
+               self.edges_size =-1
+               return True
 
-        Note: If such an edge does not exists the function will do nothing
-        """
-        raise NotImplementedError
+
     def __str__(self):
         return ""
