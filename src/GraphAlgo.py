@@ -1,3 +1,5 @@
+from typing import List
+
 from src.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
@@ -7,7 +9,7 @@ class GraphAlgo(GraphAlgoInterface):
     """This abstract class represents an interface of a graph."""
 
     def __init__(self):
-        graph = DiGraph ()
+        self.graph = DiGraph ()
 
 
     def get_graph(self) -> GraphInterface:
@@ -77,3 +79,11 @@ class GraphAlgo(GraphAlgoInterface):
         @return: None
         """
         raise NotImplementedError
+
+    def DJ (self, src:int ):
+        for i in self.graph.nodes:
+            self.graph.nodes.get(i).weight =-1
+            self.graph.nodes.get(i).info = "unvisited"
+
+        self.graph.nodes.get(src).weight = 0
+        self.graph.nodes.get(src).info = "visited"
