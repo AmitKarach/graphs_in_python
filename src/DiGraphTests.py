@@ -2,6 +2,7 @@ import unittest
 from DiGraph import DiGraph
 
 
+
 class MyTestCase(unittest.TestCase):
     def test_addEdge(self):
         g1 = self.creat_graph()
@@ -45,8 +46,6 @@ class MyTestCase(unittest.TestCase):
         for i in range(0, 2):
             g.add_node(i)
         g.add_edge(0, 1, 1.2)
-
-
         return g
 
 

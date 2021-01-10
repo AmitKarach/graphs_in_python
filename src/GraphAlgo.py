@@ -1,35 +1,42 @@
+import json
 from typing import List
-
+import queue
 from src.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
+from src.Node import Node
 
 
 class GraphAlgo(GraphAlgoInterface):
     """This abstract class represents an interface of a graph."""
 
-    def __init__(self):
-        self.graph = DiGraph ()
+    def __init__(self, g:DiGraph):
+        self.graph = g
 
 
     def get_graph(self) -> GraphInterface:
         return self.graph
 
+
     def load_from_json(self, file_name: str) -> bool:
-        """
-        Loads a graph from a json file.
-        @param file_name: The path to the json file
-        @returns True if the loading was successful, False o.w.
-        """
-        raise NotImplementedError
+        try:
+            with open (file_name,'r') as file:
+               g= json.load(file)
+               for k,v in g.items():
+                   node =Node(**v)
+                   self.graph.add_node(node.key)
+        except IOError as e:
+            print(e)
+        print(self.graph)
 
     def save_to_json(self, file_name: str) -> bool:
-        """
-        Saves the graph in JSON format to a file
-        @param file_name: The path to the out file
-        @return: True if the save was successful, False o.w.
-        """
-        raise NotImplementedError
+        try:
+            with open (file_name,'w') as file:
+                json.dump(self.graph, default=lambda n: n.__dict__, indent= 4 ,fp= file)
+        except IOError as e:
+            print(e)
+
+
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         """
@@ -84,6 +91,7 @@ class GraphAlgo(GraphAlgoInterface):
         for i in self.graph.nodes:
             self.graph.nodes.get(i).weight =-1
             self.graph.nodes.get(i).info = "unvisited"
-
+        pryorty_q = queue.PriorityQueue()
         self.graph.nodes.get(src).weight = 0
         self.graph.nodes.get(src).info = "visited"
+        pryorty_q.put(src)
