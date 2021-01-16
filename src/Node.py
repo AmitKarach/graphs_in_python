@@ -5,6 +5,6 @@ class Node:
        self.weight=0
        self.info=""
        self.location=None
-
+       self.perent=None
     def encoder (self,node):
         return node.__dict__

@@ -31,6 +31,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_all_out_edges_of_node(self):
         g1 = self.creat_graph()
+        print(g1.all_out_edges_of_node(0))
         self.assertEqual(len(g1.all_out_edges_of_node(0)), 1)
         self.assertEqual(g1.all_out_edges_of_node(1), None)
 

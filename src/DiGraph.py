@@ -57,7 +57,7 @@ class DiGraph(GraphInterface):
 
     def all_out_edges_of_node(self, id1: int) -> dict:
         if id1 not in self.edges_out:
-            return None
+            return {}
         return self.edges_out[id1]
 
     def remove_node(self, node_id: int) -> bool:
@@ -84,4 +84,4 @@ class DiGraph(GraphInterface):
 
 
     def __str__(self):
-        return ""
+        return  "nodes are %s, edges_in re %s, edges_out are %s" % (self.nodes, self.edges_in,self.edges_out)
