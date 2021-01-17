@@ -1,40 +1,51 @@
 {
-    "nodes": {
-        "0": {
-            "key": 0,
-            "weight": 0,
-            "info": "",
-            "location": null
+    "Edges": [
+        {
+            "src": 0,
+            "dest": 1,
+            "weight": 1.2
         },
-        "1": {
-            "key": 1,
-            "weight": 0,
-            "info": "",
-            "location": null
+        {
+            "src": 0,
+            "dest": 2,
+            "weight": 1.0
         },
-        "2": {
-            "key": 2,
-            "weight": 0,
-            "info": "",
-            "location": null
+        {
+            "src": 1,
+            "dest": 0,
+            "weight": 1.0
+        },
+        {
+            "src": 2,
+            "dest": 3,
+            "weight": 1.0
+        },
+        {
+            "src": 3,
+            "dest": 2,
+            "weight": 1.0
         }
-    },
-    "edges_in": {
-        "1": {
-            "0": 1.2
+    ],
+    "Nodes": [
+        {
+            "pos": null,
+            "id": 0
         },
-        "2": {
-            "1": 1.2
-        }
-    },
-    "edges_out": {
-        "0": {
-            "1": 1.2
+        {
+            "pos": null,
+            "id": 1
         },
-        "1": {
-            "2": 1.2
+        {
+            "pos": null,
+            "id": 2
+        },
+        {
+            "pos": null,
+            "id": 3
+        },
+        {
+            "pos": null,
+            "id": 4
         }
-    },
-    "edges_size": 2,
-    "mc": 5
+    ]
 }

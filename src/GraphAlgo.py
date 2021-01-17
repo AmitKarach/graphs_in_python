@@ -11,7 +11,7 @@ from src.Node import Node
 class GraphAlgo(GraphAlgoInterface):
     """This abstract class represents an interface of a graph."""
 
-    def __init__(self, g:DiGraph):
+    def __init__(self, g:DiGraph=DiGraph()):
         self.graph = g
 
 
@@ -23,22 +23,40 @@ class GraphAlgo(GraphAlgoInterface):
         try:
             with open (file_name,'r') as file:
                g= json.load(file)
-               for k,v in g.items("nodes"):
-                   node =Node(**v)
-                   self.graph.add_node(node.key)
+               nodes = g['Nodes']
+               edges = g['Edges']
+               for n in nodes:
+                   self.graph.add_node(n['id'])
+                   self.graph.nodes[n['id']].location = n['pos']
+               for e in edges:
+                   self.graph.add_edge(e['src'], e['dest'], e['weight'])
         except IOError as e:
             print(e)
-        print(self.graph)
 
     def save_to_json(self, file_name: str) -> bool:
+        my_json={'Edges':[],'Nodes':[]}
+        for key in self.graph.edges_out:
+            for dest in self.graph.edges_out[key]:
+                newdict={}
+                newdict['src'] = key
+                newdict['dest']= dest
+                newdict['weight']= self.graph.edges_out[key][dest]
+                my_json['Edges'].append(newdict)
+        for id in self.graph.nodes:
+            newdict ={}
+            if self.graph.nodes[id].location !=None:
+                newdict['pos']=','.join(str(x) for x in id)
+            else:
+                newdict['pos']=None
+            newdict['id']=self.graph.nodes[id].key
+            my_json['Nodes'].append(newdict)
         try:
             with open (file_name,'w') as file:
-                json.dump(self.graph, default=lambda n: n.__dict__, indent= 4 ,fp= file)
+                json.dump(my_json, default=lambda n: n.__dict__, indent= 4 ,fp= file)
         except IOError as e:
             print(e)
 
-
-
+    # ','.join(str(x) for x in id)
     def shortest_path(self, id1: int, id2: int) -> (float, list):
 
         if id1 in self.graph.nodes and id2 in self.graph.nodes:
@@ -115,10 +133,6 @@ class GraphAlgo(GraphAlgoInterface):
         short_list.append(dest)
         current =self.graph.nodes[dest]
         while current.perent !=None:
-            # for key,value in self.graph.all_in_edges_of_node[current].items():
-            #     if self.graph.nodes[key].weight == self.graph.nodes[current].weight-value:
-            #         current ==key
-            #         short_list.append(key)
             short_list.append(current.perent)
             current=self.graph.nodes[current.perent]
 
@@ -134,3 +148,6 @@ class GraphAlgo(GraphAlgoInterface):
         g.edges_in=new_edges_in
         g.edges_size= self.graph.edges_size
         return g
+
+    def __str__(self):
+        return  "nodes are %s, edges are %s" % (self.graph.nodes,self.graph.edges_out)
