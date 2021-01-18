@@ -13,9 +13,9 @@ class MyTestCase(unittest.TestCase):
     def test_removeEdge(self):
         g1 = self.creat_graph()
         g1.remove_edge(0,1)
-        g1.remove_edge(1,2)
+        g1.remove_edge(1,0)
 
-        self.assertEqual(g1.edges_size,0)
+        self.assertEqual(g1.edges_size,1)
 
     def test_vSize(self):
         g1 = self.creat_graph()
@@ -44,9 +44,11 @@ class MyTestCase(unittest.TestCase):
 
     def creat_graph(self):
         g = DiGraph()
-        for i in range(0, 2):
+        for i in range(0, 3):
             g.add_node(i)
         g.add_edge(0, 1, 1.2)
+        g.add_edge(1, 2, 1.2)
+
         return g
 
 

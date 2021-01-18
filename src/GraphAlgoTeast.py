@@ -30,7 +30,12 @@ class MyTestCase(unittest.TestCase):
         graph =GraphAlgo(g)
         print(graph.connected_components())
 
-
+    def test_plot_graph(self):
+        g = self.creat_graph()
+        graph = GraphAlgo(g)
+        # graph = GraphAlgo()
+        # graph.load_from_json("A0.json")
+        graph.plot_graph()
 
     def creat_graph(self):
         g = DiGraph()
