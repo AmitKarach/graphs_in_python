@@ -33,7 +33,7 @@ class GraphAlgo(GraphAlgoInterface):
                for n in nodes:
                    key =n["id"]
                    # self.graph.add_node(key)
-                   if len(n)>1:
+                   if n['pos']!=None:
                        p= n['pos'].split(",")
                        pos = (float(p[0]), float(p[1]))
                        self.graph.add_node(key,pos)
@@ -53,7 +53,7 @@ class GraphAlgo(GraphAlgoInterface):
                 newdict={}
                 newdict['src'] = key
                 newdict['dest']= dest
-                newdict['weight']= self.graph.edges_out[key][dest]
+                newdict['w']= self.graph.edges_out[key][dest]
                 my_json['Edges'].append(newdict)
         for id in self.graph.nodes:
             newdict ={}
