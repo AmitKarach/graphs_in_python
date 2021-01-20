@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 class GraphAlgo(GraphAlgoInterface):
     """This abstract class represents an interface of a graph."""
 
-    def __init__(self, g:DiGraph=DiGraph()):
+    def __init__(self, g=DiGraph()):
         self.graph = g
 
 
@@ -33,7 +33,7 @@ class GraphAlgo(GraphAlgoInterface):
                for n in nodes:
                    key =n["id"]
                    # self.graph.add_node(key)
-                   if n['pos']!=None:
+                   if len(n) > 1:
                        p= n['pos'].split(",")
                        pos = (float(p[0]), float(p[1]))
                        self.graph.add_node(key,pos)
@@ -57,10 +57,8 @@ class GraphAlgo(GraphAlgoInterface):
                 my_json['Edges'].append(newdict)
         for id in self.graph.nodes:
             newdict ={}
-            if self.graph.nodes[id].location !=None:
-                newdict['pos']=','.join(str(x) for x in id)
-            else:
-                newdict['pos']=None
+            if self.graph.nodes[id].pos !=None:
+                newdict['pos']=','.join(str(x) for x in self.graph.nodes[id].pos)
             newdict['id']=self.graph.nodes[id].key
             my_json['Nodes'].append(newdict)
         try:
@@ -137,9 +135,9 @@ class GraphAlgo(GraphAlgoInterface):
         x = []
         y = []
         for k, v in nodes.items():
-            if v.location is not None:
-                x.append(v.location[0])
-                y.append(v.location[1])
+            if v.pos is not None:
+                x.append(v.pos[0])
+                y.append(v.pos[1])
         if len(x) == 0:
             x_max = 10
             x_min = 0
@@ -156,9 +154,9 @@ class GraphAlgo(GraphAlgoInterface):
 
 
     def getPos(self, v: Node, limit):
-        if v.location is not None:
-            t_x = v.location[0]
-            t_y = v.location[1]
+        if v.pos is not None:
+            t_x = v.pos[0]
+            t_y = v.pos[1]
         else:
             t_x = random.randint(limit[0], limit[1])
             t_y = random.randint(limit[2], limit[3])

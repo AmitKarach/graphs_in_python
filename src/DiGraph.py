@@ -17,8 +17,12 @@ class DiGraph(GraphInterface):
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if node_id in self.nodes:
-            return False
-        new_node = Node(node_id)
+            if pos != self.nodes[node_id].pos:
+                self.nodes[node_id].pos=pos
+                return True
+            else:
+                return False
+        new_node = Node(node_id,pos)
         self.nodes[node_id] = new_node
         self.mc += 1
         return True

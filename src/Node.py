@@ -1,10 +1,10 @@
 class Node:
 
-    def __init__(self,key):
+    def __init__(self,key,pos):
        self.key =key
        self.weight=0
        self.info=""
-       self.location=None
+       self.pos=pos
        self.perent=None
        self.edges_in = dict()
        self.edges_out = dict()
