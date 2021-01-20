@@ -106,7 +106,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         nodes = self.graph.get_all_v()
-        lim = self.getLimits()
+        lim = self.Limits()
         positions =dict()
         main_slant = np.math.dist([lim[0],lim[2]], [lim[1],lim[3]])
 
@@ -130,14 +130,14 @@ class GraphAlgo(GraphAlgoInterface):
 
 
 
-    def getLimits(self):
+    def Limits(self):
         nodes = self.graph.nodes
         x = []
         y = []
-        for k, v in nodes.items():
-            if v.pos is not None:
-                x.append(v.pos[0])
-                y.append(v.pos[1])
+        for key, value in nodes.items():
+            if value.pos is not None:
+                x.append(value.pos[0])
+                y.append(value.pos[1])
         if len(x) == 0:
             x_max = 10
             x_min = 0
