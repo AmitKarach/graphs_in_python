@@ -20,7 +20,7 @@ class MyTestCase(unittest.TestCase):
     def test_vSize(self):
         g1 = self.creat_graph()
         print (g1.v_size())
-        self.assertEqual(g1.v_size(), 2)
+        self.assertEqual(g1.v_size(),3)
 
     def test_all_in_edges_of_node(self):
         g1 = self.creat_graph()
@@ -33,14 +33,14 @@ class MyTestCase(unittest.TestCase):
         g1 = self.creat_graph()
         print(g1.all_out_edges_of_node(0))
         self.assertEqual(len(g1.all_out_edges_of_node(0)), 1)
-        self.assertEqual(g1.all_out_edges_of_node(1), None)
+        self.assertEqual(g1.all_out_edges_of_node(2), {})
 
     def test_removeNode(self):
         g1 = self.creat_graph()
         g1.remove_node(0)
-        g1.remove_node(3)
+        g1.remove_node(4)
 
-        self.assertEqual(g1.v_size(), 1)
+        self.assertEqual(g1.v_size(),2)
 
     def creat_graph(self):
         g = DiGraph()
