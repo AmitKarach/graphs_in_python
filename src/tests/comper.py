@@ -1,11 +1,11 @@
 import unittest
 
-from GraphAlgo import GraphAlgo
+from src.GraphAlgo import GraphAlgo
 import networkx as nx
 
 from timeit import default_timer as time
 
-from DiGraph import DiGraph
+from src.DiGraph import DiGraph
 
 
 class MyTestCase(unittest.TestCase):
